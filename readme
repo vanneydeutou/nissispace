@@ -1,0 +1,20 @@
+User Registration:
+
+Endpoint: POST /auth/signup
+Send a POST request with username, password, phoneNumber, and email in the request body.
+Validates user data using Joi schema.
+Hashes the password using bcrypt.
+Registers the user in the database.
+User Login:
+
+Endpoint: POST /auth/login
+Send a POST request with email and password in the request body.
+Validates user data using Joi schema.
+Compares the password hash for authentication.
+Generates a JWT token for session management.
+Protected Route:
+
+Endpoint: GET /user/me
+Requires JWT token for authentication.
+Validates user's session IP address against request IP.
+Returns user information if IP is valid.

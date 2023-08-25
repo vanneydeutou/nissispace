@@ -1,0 +1,18 @@
+[http.middlewares.myauth.basicAuth]
+  users = ["username:hashed_password"]
+
+[http.middlewares.forwardedHeaders.headers]
+  # Forward the client's original IP address
+  [http.middlewares.forwardedHeaders.headers.customRequestHeaders]
+    X-Real-IP = "true"
+    X-Forwarded-For = "true"
+
+[http.routers.api]
+  entryPoints = ["https"]
+  rule = "Host(`api.example.com`)"
+  service = "api@internal"
+  middlewares = ["myauth", "forwardedHeaders"] # Add "forwardedHeaders" middleware
+
+[http.services.api.loadBalancer]
+  [[http.services.api.loadBalancer.servers]]
+    url = "http://nodejs-service:3000"

@@ -1,0 +1,20 @@
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[providers]
+  [providers.file]
+    filename = "traefik_dynamic.toml"
+
+[certificatesResolvers.myresolver.acme]
+  email = "your@email.com"
+  storage = "acme.json"
+  [certificatesResolvers.myresolver.acme.httpChallenge]
+    entryPoint = "http"
+
+[api]
+  dashboard = true
